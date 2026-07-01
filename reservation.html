@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Réservation — Studio Meraki | Inscriptions et cours d'essai</title>
+    <meta name="description" content="Réservez votre cours d'essai ou inscrivez-vous au Studio Meraki à Aubière (63). Modern, street, heels, comédie musicale… Choisissez votre discipline et votre créneau.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.lestudiomeraki.fr/reservation.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Studio Meraki">
+    <meta property="og:title" content="Réservation — Studio Meraki">
+    <meta property="og:description" content="Réservez votre cours d'essai ou inscrivez-vous au Studio Meraki à Aubière (63).">
+    <meta property="og:url" content="https://www.lestudiomeraki.fr/reservation.html">
+    <meta property="og:image" content="https://www.lestudiomeraki.fr/assets/og-image.jpg">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="48x48"  href="assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32"  href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="booking-page">
+    <header class="site-header booking-header" data-header>
+      <a class="brand" href="index.html#accueil" aria-label="Studio Meraki - accueil">
+        <picture>
+          <source srcset="assets/logo.webp" type="image/webp">
+          <img src="Image Instagram 1080x1080.jpg" alt="Logo Studio Meraki" width="78" height="78" loading="lazy">
+        </picture>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation" data-menu-toggle>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="navigation" class="nav" data-nav>
+        <a href="index.html#histoire">Histoire</a>
+        <a href="index.html#cours">Cours</a>
+        <a href="index.html#planning">Planning</a>
+        <a href="index.html#tarifs">Tarifs</a>
+        <a href="reservation.html" aria-current="page">Réservation</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="reservation-hero">
+        <div class="reservation-intro reveal">
+          <p class="eyebrow">Réservation</p>
+          <h1>Rejoignez la bulle.</h1>
+          <p>
+            Remplissez la demande pour vous inscrire ou inscrire votre enfant.
+            Les informations pourront être ajustées selon les réservations.
+          </p>
+          <div class="reservation-facts">
+            <div><strong>5 €</strong><span>le cours d'essai — profitez de 2 semaines d'essai, du 14 au 28 septembre, pour découvrir les cours avant de confirmer votre inscription.</span></div>
+          </div>
+        </div>
+        <form class="reservation-form reveal" data-reservation-form>
+          <input type="hidden" name="access_key" value="8e8f6cb1-5e11-4993-8664-275f53d3d586">
+          <input type="hidden" name="subject" value="Nouvelle réservation — Studio Meraki">
+          <input type="hidden" name="from_name" value="Studio Meraki Réservation">
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+          <div class="form-section">
+            <h2>Participant</h2>
+            <div class="segmented-control" role="group" aria-label="Type de participant">
+              <label>
+                <input type="radio" name="participant" value="adulte" checked data-participant-option>
+                <span>Adulte</span>
+              </label>
+              <label>
+                <input type="radio" name="participant" value="ado" data-participant-option>
+                <span>Ado</span>
+              </label>
+              <label>
+                <input type="radio" name="participant" value="enfant" data-participant-option>
+                <span>Enfant</span>
+              </label>
+            </div>
+            <div class="form-grid">
+              <label>
+                Nom du participant
+                <input type="text" name="student_name" placeholder="Nom et prénom" required>
+              </label>
+              <label>
+                Âge
+                <input type="number" name="age" min="4" max="99" placeholder="Ex : 12" required>
+              </label>
+            </div>
+            <label class="guardian-field is-hidden" data-guardian-field>
+              Nom du responsable légal
+              <input type="text" name="guardian_name" placeholder="Parent ou tuteur">
+            </label>
+          </div>
+
+          <div class="form-section">
+            <h2>Discipline(s) souhaitée(s)</h2>
+            <p class="form-hint">Vous pouvez sélectionner plusieurs disciplines.</p>
+            <div class="discipline-checkboxes">
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Modern">
+                <span>Modern</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Street">
+                <span>Street</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Street Latino">
+                <span>Street Latino</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Comédie Musicale">
+                <span>Comédie Musicale</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Heels">
+                <span>Heels</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Glam">
+                <span>Glam</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Broadway">
+                <span>Broadway</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Loisirs">
+                <span>Loisirs</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Technique">
+                <span>Technique</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Éveil (4 ans)">
+                <span>Éveil (4 ans)</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="disciplines" value="Initiation (5-10 ans)">
+                <span>Initiation (5-10 ans)</span>
+              </label>
+            </div>
+            <div class="form-grid" style="margin-top: 16px;">
+              <label>
+                Niveau
+                <select name="level" required>
+                  <option value="">Sélectionner un niveau</option>
+                  <option>Débutant</option>
+                  <option>Intermédiaire</option>
+                  <option>Avancé</option>
+                  <option>Je ne sais pas encore</option>
+                </select>
+              </label>
+              <label>
+                Formule
+                <select name="formula" required>
+                  <option value="">Sélectionner une formule</option>
+                  <option>Cours d'essai - 5 €</option>
+                  <option>Enfants/Collège - 1 cours/semaine -200 €/an</option>
+                  <option>Enfants/Collège - 2 cours/semaine -350 €/an</option>
+                  <option>Enfants/Collège - 3 cours/semaine -500 €/an</option>
+                  <option>Lycée/Adultes sans gala - 1 cours/semaine -230 €/an</option>
+                  <option>Lycée/Adultes sans gala - 2 cours/semaine -410 €/an</option>
+                  <option>Lycée/Adultes sans gala - 3 cours/semaine -590 €/an</option>
+                  <option>Lycée/Adultes avec gala - 1 cours/semaine -250 €/an</option>
+                  <option>Lycée/Adultes avec gala - 2 cours/semaine -450 €/an</option>
+                  <option>Lycée/Adultes avec gala - 3 cours/semaine -650 €/an</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section" id="slots-section">
+            <h2>Créneau(x) préféré(s)</h2>
+            <p class="form-hint" id="slots-empty-hint">Veuillez sélectionner une ou plusieurs disciplines ci-dessus pour afficher les créneaux disponibles.</p>
+
+            <div class="slot-group" data-slot-group="Modern">
+              <p class="slot-group-label">Modern</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Lundi - Modern adultes - 21:00"><span>Lun · Modern adultes · 21:00</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mardi - Modern ados 11-13 ans - 17:00"><span>Mar · Modern ados 11-13 ans · 17:00</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mardi - Modern ados 13-15 ans - 18:00"><span>Mar · Modern ados 13-15 ans · 18:00</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mardi - Modern ados 15-18 ans - 19:00"><span>Mar · Modern ados 15-18 ans · 19:00</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Modern ados 15-18 ans - 17:15"><span>Mer · Modern ados 15-18 ans · 17:15</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Vendredi - Modern adultes - 21:00"><span>Ven · Modern adultes · 21:00</span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Street">
+              <p class="slot-group-label">Street</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Street enfants - 16:15"><span>Mer · Street enfants · 16:15</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Street ados 15-18 ans - 18:30"><span>Mer · Street ados 15-18 ans · 18:30</span></label>
+                <label class="checkbox-option checkbox-option--full"><input type="checkbox" name="slots" value="Mercredi - Street adultes - 21:00" disabled><span>Mer · Street adultes · 21:00 <em>· Complet</em></span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Jeudi - Street ados 11-13 ans - 17:30"><span>Jeu · Street ados 11-13 ans · 17:30</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Vendredi - Street ados 13-15 ans - 17:30"><span>Ven · Street ados 13-15 ans · 17:30</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Vendredi - Street adultes - 18:30"><span>Ven · Street adultes · 18:30</span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Street Latino">
+              <p class="slot-group-label">Street Latino</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option checkbox-option--full"><input type="checkbox" name="slots" value="Jeudi - Street Latino ados/adultes 15 ans et + - 18:30" disabled><span>Jeu · Street Latino ados/adultes 15+ · 18:30 <em>· Complet</em></span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Comédie Musicale">
+              <p class="slot-group-label">Comédie Musicale</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Lundi - Comédie Musicale enfants 10-15 ans - 18:45"><span>Lun · Comédie Musicale enfants 10-15 ans · 18:45</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Lundi - Comédie Musicale ados/adultes 15 ans et + - 19:45"><span>Lun · Comédie Musicale ados/adultes 15+ · 19:45</span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Heels">
+              <p class="slot-group-label">Heels</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option checkbox-option--full"><input type="checkbox" name="slots" value="Mercredi - Heels adultes - 19:45" disabled><span>Mer · Heels adultes · 19:45 <em>· Complet</em></span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Jeudi - Heels adultes - 21:00"><span>Jeu · Heels adultes · 21:00</span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Glam">
+              <p class="slot-group-label">Glam</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option checkbox-option--full"><input type="checkbox" name="slots" value="Jeudi - Glam adultes - 19:45" disabled><span>Jeu · Glam adultes · 19:45 <em>· Complet</em></span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Broadway">
+              <p class="slot-group-label">Broadway</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Vendredi - Broadway ados/adultes 15 ans et + - 19:45"><span>Ven · Broadway ados/adultes 15+ · 19:45</span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Loisirs">
+              <p class="slot-group-label">Loisirs</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mardi - Loisirs ados/adultes 15 ans et + - 20:15"><span>Mar · Loisirs ados/adultes 15+ · 20:15</span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Technique">
+              <p class="slot-group-label">Technique</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Samedi - Technique ados/adultes 15 ans et + - 14:45"><span>Sam · Technique ados/adultes 15+ · 14:45</span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Éveil (4 ans)">
+              <p class="slot-group-label">Éveil</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Éveil 4 ans - 10:30"><span>Mer · Éveil 4 ans · 10:30</span></label>
+              </div>
+            </div>
+
+            <div class="slot-group" data-slot-group="Initiation (5-10 ans)">
+              <p class="slot-group-label">Initiation</p>
+              <div class="discipline-checkboxes">
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Initiation 5-6 ans - 11:30"><span>Mer · Initiation 5-6 ans · 11:30</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Initiation 6-7 ans - 13:15"><span>Mer · Initiation 6-7 ans · 13:15</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Initiation 7-8 ans - 14:15"><span>Mer · Initiation 7-8 ans · 14:15</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Initiation 9-10 ans - 15:15"><span>Mer · Initiation 9-10 ans · 15:15</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Coordonnées</h2>
+            <div class="form-grid">
+              <label>
+                Email
+                <input type="email" name="email" placeholder="vous@email.com" required>
+              </label>
+              <label>
+                Téléphone
+                <input type="tel" name="phone" placeholder="06 00 00 00 00" required>
+              </label>
+            </div>
+            <label>
+              Modalité de paiement envisagée
+              <select name="payment">
+                <option>À définir ensemble</option>
+                <option>Espèces - sur place, 1 versement</option>
+                <option>Chèques - jusqu'à 4 chèques</option>
+                <option>Chèques ANCV (chèques vacances)</option>
+                <option>Carte bancaire - via HelloAsso ou sur place, 1 versement</option>
+                <option>Prélèvement bancaire - jusqu'à 4 fois</option>
+              </select>
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="4" placeholder="Besoin particulier, problèmes médicaux, question, lien familial pour remise, ou si vous souhaitez plus de 3 cours, précisez-le ici…"></textarea>
+            </label>
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" name="reglement" required>
+            <span>J'ai lu et j'accepte le <a href="assets/reglement_interieur.pdf" target="_blank" rel="noopener noreferrer">règlement intérieur</a>.</span>
+          </label>
+          <label class="consent">
+            <input type="checkbox" name="consent" required>
+            <span>J'accepte d'être recontacté pour finaliser ma réservation.</span>
+          </label>
+
+          <button class="button button-dark" type="submit">Envoyer la demande</button>
+          <p class="form-confirmation" data-form-confirmation aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <picture>
+          <source srcset="assets/logo.webp" type="image/webp">
+          <img src="Image Instagram 1080x1080.jpg" alt="Logo Studio Meraki" width="72" height="72" loading="lazy">
+        </picture>
+        <p class="footer-name">Studio Meraki</p>
+        <p class="footer-tagline">La bulle des arts.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/studiomerakioff/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@studiomerakiofficiel" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.74a4.85 4.85 0 0 1-1.01-.05z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61560712202253" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <nav class="footer-legal">
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="politique-de-confidentialite.html">Confidentialité</a>
+          <a href="cgv.html">CGV</a>
+        </nav>
+        <p class="footer-credit">Fait avec ❤️ par <a href="https://orion-studio.io/" target="_blank" rel="noopener noreferrer">Orion Studio</a></p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
