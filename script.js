@@ -6,14 +6,9 @@ if (heroVideo) {
   heroVideo.setAttribute("webkit-playsinline", "");
 
   const tryPlay = () => heroVideo.play().catch(() => {});
-
-  // Tentative immédiate
   tryPlay();
-
-  // Dès que la vidéo est prête
   heroVideo.addEventListener("canplay", tryPlay, { once: true });
 
-  // Fallback : premier geste de l'utilisateur sur la page
   const playOnInteraction = () => {
     heroVideo.play().catch(() => {});
     document.removeEventListener("click", playOnInteraction);
@@ -91,34 +86,140 @@ const observer = new IntersectionObserver(
 
 revealItems.forEach((item) => observer.observe(item));
 
-// ── Créneaux dynamiques (filtrage par discipline) ────────────
-const slotsSection = document.getElementById("slots-section");
-const slotsEmptyHint = document.getElementById("slots-empty-hint");
-const disciplineCheckboxes = document.querySelectorAll('[name="disciplines"]');
-const slotGroups = document.querySelectorAll("[data-slot-group]");
+// ── Rendu dynamique depuis courses.json ──────────────────────
+const TEACHERS = { laura: "Laura", presci: "Préscilla", both: "Laura & Préscilla" };
+const DAY_SHORT = { Lundi: "Lun", Mardi: "Mar", Mercredi: "Mer", Jeudi: "Jeu", Vendredi: "Ven", Samedi: "Sam" };
 
-const syncSlots = () => {
-  const selected = new Set(
-    [...disciplineCheckboxes].filter((cb) => cb.checked).map((cb) => cb.value)
-  );
+function slotDisplayLabel(reservationValue) {
+  const m = reservationValue.match(/^(\w+) - (.+) - (\d{2}:\d{2})$/);
+  if (!m) return reservationValue;
+  return `${DAY_SHORT[m[1]] || m[1]} · ${m[2]} · ${m[3]}`;
+}
 
-  let anyVisible = false;
-  slotGroups.forEach((group) => {
-    const visible = selected.has(group.dataset.slotGroup);
-    group.style.display = visible ? "flex" : "none";
-    if (!visible) {
-      group.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-        cb.checked = false;
-      });
-    }
-    if (visible) anyVisible = true;
+function renderPlanning(slots) {
+  const grid = document.getElementById("planning-grid");
+  if (!grid) return;
+
+  const byDay = new Map();
+  slots.forEach((s) => {
+    if (!byDay.has(s.day)) byDay.set(s.day, { order: s.dayOrder, slots: [] });
+    byDay.get(s.day).slots.push(s);
   });
 
-  if (slotsEmptyHint) slotsEmptyHint.style.display = anyVisible ? "none" : "";
-};
+  const sorted = [...byDay.entries()].sort((a, b) => a[1].order - b[1].order);
 
-disciplineCheckboxes.forEach((cb) => cb.addEventListener("change", syncSlots));
-syncSlots();
+  grid.innerHTML = sorted
+    .map(([day, { slots: ds }]) => {
+      const classes = ds
+        .map((s) => {
+          const label = s.label || s.discipline.replace(/ \(.*\)$/, "");
+          const teacher = TEACHERS[s.teacher] || s.teacher;
+          return (
+            `<div class="class ${s.cssClass}${s.isFull ? " is-full" : ""}" data-slot-id="${s.id}">` +
+            `<strong>${label}</strong><small>${s.level}</small>` +
+            `<span>${s.timeStart} - ${s.timeEnd}</span>` +
+            `<em class="teacher-tag ${s.teacher}">${teacher}</em>` +
+            (s.isFull ? '<span class="full-badge">Complet</span>' : "") +
+            `</div>`
+          );
+        })
+        .join("");
+      return `<div class="day"><h3>${day}</h3>${classes}</div>`;
+    })
+    .join("");
+}
+
+function renderSlots(slots, disciplineOrder) {
+  const discBox = document.getElementById("discipline-checkboxes-container");
+  const slotsBox = document.getElementById("slots-container");
+  if (!discBox && !slotsBox) return;
+
+  const reservable = slots.filter((s) => s.inReservation && s.reservationGroup);
+  const byGroup = {};
+  reservable.forEach((s) => {
+    (byGroup[s.reservationGroup] ||= []).push(s);
+  });
+  const orderedGroups = disciplineOrder.filter((d) => byGroup[d]);
+
+  if (discBox) {
+    discBox.innerHTML = orderedGroups
+      .map(
+        (g) =>
+          `<label class="checkbox-option"><input type="checkbox" name="disciplines" value="${g}"><span>${g}</span></label>`
+      )
+      .join("");
+  }
+
+  if (slotsBox) {
+    slotsBox.innerHTML = orderedGroups
+      .map((g) => {
+        const groupLabel = g.replace(/ \(.*\)$/, "");
+        const items = byGroup[g]
+          .map(
+            (s) =>
+              `<label class="checkbox-option${s.isFull ? " checkbox-option--full" : ""}">` +
+              `<input type="checkbox" name="slots" value="${s.reservationValue}"${s.isFull ? " disabled" : ""}>` +
+              `<span>${slotDisplayLabel(s.reservationValue)}${s.isFull ? " <em>· Complet</em>" : ""}</span>` +
+              `</label>`
+          )
+          .join("");
+        return (
+          `<div class="slot-group" data-slot-group="${g}" style="display:none">` +
+          `<p class="slot-group-label">${groupLabel}</p>` +
+          `<div class="discipline-checkboxes">${items}</div>` +
+          `</div>`
+        );
+      })
+      .join("");
+  }
+
+  bindSyncSlots();
+}
+
+function bindSyncSlots() {
+  const slotsEmptyHint = document.getElementById("slots-empty-hint");
+  const disciplineCheckboxes = document.querySelectorAll('[name="disciplines"]');
+  const slotGroups = document.querySelectorAll("[data-slot-group]");
+
+  const syncSlots = () => {
+    const selected = new Set(
+      [...disciplineCheckboxes].filter((cb) => cb.checked).map((cb) => cb.value)
+    );
+    let anyVisible = false;
+    slotGroups.forEach((group) => {
+      const visible = selected.has(group.dataset.slotGroup);
+      group.style.display = visible ? "flex" : "none";
+      if (!visible) {
+        group.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+          cb.checked = false;
+        });
+      }
+      if (visible) anyVisible = true;
+    });
+    if (slotsEmptyHint) slotsEmptyHint.style.display = anyVisible ? "none" : "";
+  };
+
+  disciplineCheckboxes.forEach((cb) => cb.addEventListener("change", syncSlots));
+  syncSlots();
+}
+
+async function loadCourses() {
+  const grid = document.getElementById("planning-grid");
+  const slotsBox = document.getElementById("slots-container");
+  if (!grid && !slotsBox) return;
+
+  try {
+    const res = await fetch("/data/courses.json");
+    if (!res.ok) throw new Error("fetch failed");
+    const data = await res.json();
+    renderPlanning(data.slots);
+    renderSlots(data.slots, data.disciplineOrder || []);
+  } catch {
+    if (grid) grid.innerHTML = "<p style='padding:1rem;opacity:.5'>Planning temporairement indisponible.</p>";
+  }
+}
+
+loadCourses();
 
 // ── Formulaire réservation ───────────────────────────────────
 const syncGuardianField = () => {

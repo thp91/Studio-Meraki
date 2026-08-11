@@ -102,52 +102,7 @@
           <div class="form-section">
             <h2>Discipline(s) souhaitée(s)</h2>
             <p class="form-hint">Vous pouvez sélectionner plusieurs disciplines.</p>
-            <div class="discipline-checkboxes">
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Modern">
-                <span>Modern</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Street">
-                <span>Street</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Street Latino">
-                <span>Street Latino</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Comédie Musicale">
-                <span>Comédie Musicale</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Heels">
-                <span>Heels</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Glam">
-                <span>Glam</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Broadway">
-                <span>Broadway</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Loisirs">
-                <span>Loisirs</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Technique">
-                <span>Technique</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Éveil (4 ans)">
-                <span>Éveil (4 ans)</span>
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="disciplines" value="Initiation (5-10 ans)">
-                <span>Initiation (5-10 ans)</span>
-              </label>
-            </div>
+            <div class="discipline-checkboxes" id="discipline-checkboxes-container"></div>
             <div class="form-grid" style="margin-top: 16px;">
               <label>
                 Niveau
@@ -181,98 +136,7 @@
           <div class="form-section" id="slots-section">
             <h2>Créneau(x) préféré(s)</h2>
             <p class="form-hint" id="slots-empty-hint">Veuillez sélectionner une ou plusieurs disciplines ci-dessus pour afficher les créneaux disponibles.</p>
-
-            <div class="slot-group" data-slot-group="Modern">
-              <p class="slot-group-label">Modern</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Lundi - Modern adultes - 21:00"><span>Lun · Modern adultes · 21:00</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mardi - Modern ados 11-13 ans - 17:00"><span>Mar · Modern ados 11-13 ans · 17:00</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mardi - Modern ados 13-15 ans - 18:00"><span>Mar · Modern ados 13-15 ans · 18:00</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mardi - Modern ados 15-18 ans - 19:00"><span>Mar · Modern ados 15-18 ans · 19:00</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Modern ados 15-18 ans - 17:15"><span>Mer · Modern ados 15-18 ans · 17:15</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Vendredi - Modern adultes - 21:00"><span>Ven · Modern adultes · 21:00</span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Street">
-              <p class="slot-group-label">Street</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Street enfants - 16:15"><span>Mer · Street enfants · 16:15</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Street ados 15-18 ans - 18:30"><span>Mer · Street ados 15-18 ans · 18:30</span></label>
-                <label class="checkbox-option checkbox-option--full"><input type="checkbox" name="slots" value="Mercredi - Street adultes - 21:00" disabled><span>Mer · Street adultes · 21:00 <em>· Complet</em></span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Jeudi - Street ados 11-13 ans - 17:30"><span>Jeu · Street ados 11-13 ans · 17:30</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Vendredi - Street ados 13-15 ans - 17:30"><span>Ven · Street ados 13-15 ans · 17:30</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Vendredi - Street adultes - 18:30"><span>Ven · Street adultes · 18:30</span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Street Latino">
-              <p class="slot-group-label">Street Latino</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option checkbox-option--full"><input type="checkbox" name="slots" value="Jeudi - Street Latino ados/adultes 15 ans et + - 18:30" disabled><span>Jeu · Street Latino ados/adultes 15+ · 18:30 <em>· Complet</em></span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Comédie Musicale">
-              <p class="slot-group-label">Comédie Musicale</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Lundi - Comédie Musicale enfants 10-15 ans - 18:45"><span>Lun · Comédie Musicale enfants 10-15 ans · 18:45</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Lundi - Comédie Musicale ados/adultes 15 ans et + - 19:45"><span>Lun · Comédie Musicale ados/adultes 15+ · 19:45</span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Heels">
-              <p class="slot-group-label">Heels</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option checkbox-option--full"><input type="checkbox" name="slots" value="Mercredi - Heels adultes - 19:45" disabled><span>Mer · Heels adultes · 19:45 <em>· Complet</em></span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Jeudi - Heels adultes - 21:00"><span>Jeu · Heels adultes · 21:00</span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Glam">
-              <p class="slot-group-label">Glam</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option checkbox-option--full"><input type="checkbox" name="slots" value="Jeudi - Glam adultes - 19:45" disabled><span>Jeu · Glam adultes · 19:45 <em>· Complet</em></span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Broadway">
-              <p class="slot-group-label">Broadway</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Vendredi - Broadway ados/adultes 15 ans et + - 19:45"><span>Ven · Broadway ados/adultes 15+ · 19:45</span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Loisirs">
-              <p class="slot-group-label">Loisirs</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mardi - Loisirs ados/adultes 15 ans et + - 20:15"><span>Mar · Loisirs ados/adultes 15+ · 20:15</span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Technique">
-              <p class="slot-group-label">Technique</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Samedi - Technique ados/adultes 15 ans et + - 14:45"><span>Sam · Technique ados/adultes 15+ · 14:45</span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Éveil (4 ans)">
-              <p class="slot-group-label">Éveil</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Éveil 4 ans - 10:30"><span>Mer · Éveil 4 ans · 10:30</span></label>
-              </div>
-            </div>
-
-            <div class="slot-group" data-slot-group="Initiation (5-10 ans)">
-              <p class="slot-group-label">Initiation</p>
-              <div class="discipline-checkboxes">
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Initiation 5-6 ans - 11:30"><span>Mer · Initiation 5-6 ans · 11:30</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Initiation 6-7 ans - 13:15"><span>Mer · Initiation 6-7 ans · 13:15</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Initiation 7-8 ans - 14:15"><span>Mer · Initiation 7-8 ans · 14:15</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="slots" value="Mercredi - Initiation 9-10 ans - 15:15"><span>Mer · Initiation 9-10 ans · 15:15</span></label>
-              </div>
-            </div>
+            <div id="slots-container"></div>
           </div>
 
           <div class="form-section">

@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administration — Studio Meraki</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #ef7786;
+      --pink-light: #ffeef1;
+      --gold: #f6c84f;
+      --bg: #f2f2f0;
+      --surface: #ffffff;
+      --border: #e4e4e0;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --full-bg: #ffe4e4;
+      --full-color: #c0392b;
+      --avail-bg: #e6f9ef;
+      --avail-color: #1e7e4a;
+      --radius: 10px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.04);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ── Auth screen ── */
+    #screen-auth {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .auth-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .auth-logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .auth-logo span { color: var(--pink); }
+
+    .auth-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+
+    .field { margin-bottom: 16px; }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--surface);
+      transition: border-color .15s;
+      outline: none;
+    }
+
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--pink);
+    }
+
+    .field textarea { resize: vertical; min-height: 60px; }
+
+    .auth-error {
+      background: #fff0f0;
+      color: var(--full-color);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .auth-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    .auth-hint a { color: var(--pink); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--pink);
+      color: #fff;
+      border-color: var(--pink);
+    }
+
+    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-primary:disabled { opacity: .5; cursor: default; }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { border-color: #aaa; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border-color: transparent;
+      padding: 9px 12px;
+    }
+
+    .btn-ghost:hover { color: var(--text); background: var(--bg); }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--full-color);
+      border-color: transparent;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .btn-danger:hover { background: var(--full-bg); border-color: var(--full-bg); }
+
+    .btn-sm { padding: 5px 12px; font-size: 12px; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ── Main layout ── */
+    #screen-main { min-height: 100vh; }
+
+    .top-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-bar-brand {
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-bar-brand span { color: var(--pink); }
+
+    .top-bar-links {
+      display: flex;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .top-bar-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .top-bar-links a:hover { color: var(--text); background: var(--bg); }
+
+    .top-bar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #save-status {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    #save-status.success { color: var(--avail-color); }
+    #save-status.error { color: var(--full-color); }
+
+    /* ── Content ── */
+    .main-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .page-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 32px;
+    }
+
+    /* ── Day section ── */
+    .day-section { margin-bottom: 28px; }
+
+    .day-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .day-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ── Slot cards grid ── */
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+    }
+
+    .slot-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color .15s;
+    }
+
+    .slot-card.is-full { border-color: #ffc9c9; }
+
+    .slot-display {
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .slot-color-bar {
+      width: 4px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      align-self: stretch;
+      min-height: 40px;
+    }
+
+    .color-modern { background: #7eb8e0; }
+    .color-street { background: #f4a261; }
+    .color-heels  { background: #ef7786; }
+    .color-glam   { background: #c084fc; }
+    .color-musical { background: #34d399; }
+    .color-broadway { background: #fb923c; }
+    .color-loisirs { background: #a3a3a3; }
+    .color-technique { background: #60a5fa; }
+    .color-kids   { background: #86efac; }
+    .color-latino { background: #f472b6; }
+    .color-compagnie { background: #fbbf24; }
+
+    .slot-info { flex: 1; min-width: 0; }
+
+    .slot-discipline {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .slot-level {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .slot-time {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .slot-teacher {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 99px;
+      margin-top: 6px;
+    }
+
+    .teacher-laura { background: #ffdde3; color: #c9325e; }
+    .teacher-presci { background: #fef3c7; color: #92400e; }
+    .teacher-both { background: #e8e8ff; color: #4338ca; }
+
+    .slot-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ── Full toggle ── */
+    .toggle-full {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      transition: all .15s;
+    }
+
+    .toggle-full.is-full {
+      background: var(--full-bg);
+      color: var(--full-color);
+    }
+
+    .toggle-full.is-available {
+      background: var(--avail-bg);
+      color: var(--avail-color);
+    }
+
+    .toggle-full:hover { filter: brightness(.95); }
+
+    /* ── Slot bottom bar ── */
+    .slot-bottom {
+      border-top: 1px solid var(--border);
+      padding: 8px 16px;
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    /* ── Edit form ── */
+    .slot-edit-form {
+      border-top: 1.5px solid var(--pink-light);
+      padding: 16px;
+      background: #fefefe;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .form-row.col-1 { grid-template-columns: 1fr; }
+    .form-row.col-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    .form-field { display: flex; flex-direction: column; gap: 4px; }
+
+    .form-field label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+    }
+
+    .form-field input, .form-field select {
+      padding: 7px 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--surface);
+      outline: none;
+    }
+
+    .form-field input:focus, .form-field select:focus { border-color: var(--pink); }
+
+    .form-field .hint { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .form-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 14px;
+    }
+
+    /* ── Add slot area ── */
+    .add-slot-btn {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .add-slot-btn:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+      background: var(--pink-light);
+    }
+
+    .add-slot-card {
+      background: var(--surface);
+      border: 1.5px solid var(--pink);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .add-slot-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--pink);
+    }
+
+    /* ── Checkbox ── */
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .check-row input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--pink); }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity .25s;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    #toast.show { opacity: 1; }
+    #toast.success { background: #1a7a3a; color: #fff; }
+    #toast.error { background: var(--full-color); color: #fff; }
+
+    @media (max-width: 600px) {
+      .top-bar-links { display: none; }
+      .slots-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row.col-3 { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Écran d'authentification ── -->
+<div id="screen-auth">
+  <div class="auth-card">
+    <div class="auth-logo">Studio <span>Meraki</span></div>
+    <div class="auth-sub">Interface d'administration</div>
+
+    <div id="auth-error" class="auth-error hidden"></div>
+
+    <div id="step-password">
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" id="input-password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary btn-full" onclick="submitPassword()">Continuer</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Interface principale ── -->
+<div id="screen-main" class="hidden">
+  <div class="top-bar">
+    <div class="top-bar-brand">Studio <span>Meraki</span> &nbsp;⚙</div>
+    <div class="top-bar-links">
+      <a href="index.html" target="_blank">← Voir le site</a>
+      <a href="reservation.html" target="_blank">Réservation ↗</a>
+    </div>
+    <div class="top-bar-actions">
+      <span id="save-status"></span>
+      <button class="btn btn-primary" id="btn-save" onclick="saveData()">💾 Sauvegarder</button>
+      <button class="btn btn-ghost" onclick="logout()">Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="page-title">Gestion des cours</div>
+    <div class="page-sub">
+      Modifiez les cours, marquez-les complets, puis cliquez <strong>Sauvegarder</strong>.
+      Le site est mis à jour automatiquement (~1 min).
+    </div>
+    <div id="courses-container"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const PASS_HASH = "68372dda8a58b09d268be725d61b5a1c80a692142ab4a79ebb0b6ef7e5f67c60";
+
+const CSS_CLASSES = ["modern","street","heels","glam","musical","broadway","loisirs","technique","kids","latino","compagnie"];
+const DAYS = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+
+let state = null;
+let fileSha = null;
+let editingId = null;
+let addingDay = null;
+
+// ── Auth ──────────────────────────────────────────────────────
+async function sha256(str) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,"0")).join("");
+}
+
+function showAuthError(msg) {
+  const el = document.getElementById("auth-error");
+  el.textContent = msg;
+  el.classList.remove("hidden");
+}
+
+async function submitPassword() {
+  const pwd = document.getElementById("input-password").value;
+  if (!pwd) return;
+  const hash = await sha256(pwd);
+  if (hash !== PASS_HASH) { showAuthError("Mot de passe incorrect."); return; }
+  document.getElementById("auth-error").classList.add("hidden");
+  sessionStorage.setItem("sm_auth", "1");
+  sessionStorage.setItem("sm_auth_hash", hash);
+  await loadData();
+}
+
+function logout() {
+  sessionStorage.removeItem("sm_auth");
+  sessionStorage.removeItem("sm_auth_hash");
+  location.reload();
+}
+
+// ── API proxy (Vercel function) ───────────────────────────────
+async function loadData() {
+  setStatus("Chargement…");
+  try {
+    const res = await fetch("/api/courses");
+    if (!res.ok) throw new Error((await res.json()).error || res.statusText);
+    const json = await res.json();
+    fileSha = json.sha;
+    state = JSON.parse(json.content);
+    document.getElementById("screen-auth").classList.add("hidden");
+    document.getElementById("screen-main").classList.remove("hidden");
+    render();
+    setStatus("");
+  } catch (e) {
+    showAuthError("Impossible de charger les données : " + e.message);
+  }
+}
+
+async function saveData() {
+  if (!state) return;
+  const btn = document.getElementById("btn-save");
+  btn.disabled = true;
+  setStatus("Sauvegarde…");
+  state.updatedAt = new Date().toISOString().slice(0, 10);
+  const authHash = sessionStorage.getItem("sm_auth_hash") || "";
+  try {
+    const res = await fetch("/api/courses", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authHash}`,
+      },
+      body: JSON.stringify({ content: JSON.stringify(state, null, 2), sha: fileSha }),
+    });
+    if (!res.ok) throw new Error((await res.json()).error || res.statusText);
+    const json = await res.json();
+    fileSha = json.sha;
+    setStatus("✓ Sauvegardé · Déploiement en cours (~1 min)", "success");
+    toast("Sauvegardé ✓ Le site sera mis à jour dans environ 1 minute.", "success");
+    setTimeout(() => setStatus(""), 8000);
+  } catch (e) {
+    setStatus("Erreur : " + e.message, "error");
+    toast("Erreur lors de la sauvegarde : " + e.message, "error");
+  }
+  btn.disabled = false;
+}
+
+function setStatus(msg, type = "") {
+  const el = document.getElementById("save-status");
+  el.textContent = msg;
+  el.className = type;
+}
+
+function toast(msg, type) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.className = "show " + type;
+  setTimeout(() => el.className = "", 5000);
+}
+
+// ── State mutations ───────────────────────────────────────────
+function toggleFull(id) {
+  const slot = state.slots.find(s => s.id === id);
+  if (slot) { slot.isFull = !slot.isFull; renderSlotCard(id); }
+}
+
+function deleteSlot(id) {
+  if (!confirm("Supprimer ce cours ?")) return;
+  state.slots = state.slots.filter(s => s.id !== id);
+  render();
+}
+
+function startEdit(id) {
+  editingId = editingId === id ? null : id;
+  renderSlotCard(id);
+}
+
+function cancelEdit(id) {
+  editingId = null;
+  renderSlotCard(id);
+}
+
+function saveEdit(id) {
+  const slot = state.slots.find(s => s.id === id);
+  if (!slot) return;
+  const form = document.getElementById("edit-form-" + id);
+  const f = (name) => form.querySelector(`[name="${name}"]`);
+  slot.discipline   = f("discipline").value.trim();
+  slot.label        = f("label").value.trim() || undefined;
+  slot.level        = f("level").value.trim();
+  slot.cssClass     = f("cssClass").value;
+  slot.timeStart    = f("timeStart").value;
+  slot.timeEnd      = f("timeEnd").value;
+  slot.teacher      = f("teacher").value;
+  slot.inReservation = f("inReservation").checked;
+  slot.reservationGroup = f("reservationGroup").value.trim() || null;
+  slot.reservationValue = f("reservationValue").value.trim() || null;
+  editingId = null;
+  render();
+}
+
+function startAdd(day) {
+  addingDay = addingDay === day ? null : day;
+  render();
+}
+
+function cancelAdd() {
+  addingDay = null;
+  render();
+}
+
+function confirmAdd(day) {
+  const form = document.getElementById("add-form");
+  const f = (name) => form.querySelector(`[name="${name}"]`);
+  const disc = f("discipline").value.trim();
+  const timeStart = f("timeStart").value;
+  if (!disc || !timeStart) { alert("Remplissez au minimum la discipline et l'heure."); return; }
+  const id = generateId(day, disc, timeStart);
+  const dayOrder = DAYS.indexOf(day) + 1;
+  const inRes = f("inReservation").checked;
+  const resGroup = f("reservationGroup").value.trim() || (inRes ? disc : null);
+  const resValue = f("reservationValue").value.trim() || (inRes ? autoResValue(day, disc, f("level").value, timeStart) : null);
+  state.slots.push({
+    id, day, dayOrder,
+    discipline: disc,
+    cssClass: f("cssClass").value,
+    label: f("label").value.trim() || undefined,
+    level: f("level").value.trim(),
+    timeStart,
+    timeEnd: f("timeEnd").value,
+    teacher: f("teacher").value,
+    isFull: false,
+    inReservation: inRes,
+    reservationGroup: resGroup,
+    reservationValue: resValue
+  });
+  // Sort slots by day order then timeStart
+  state.slots.sort((a,b) => a.dayOrder - b.dayOrder || a.timeStart.localeCompare(b.timeStart));
+  // Auto-add new reservationGroup to disciplineOrder if missing
+  if (resGroup && !state.disciplineOrder.includes(resGroup)) {
+    state.disciplineOrder.push(resGroup);
+  }
+  addingDay = null;
+  render();
+}
+
+function generateId(day, discipline, timeStart) {
+  const d = day.slice(0,3).toLowerCase();
+  const disc = discipline.toLowerCase().replace(/[^a-z0-9]+/g,"").slice(0,8);
+  const t = timeStart.replace(":","");
+  const suffix = Math.random().toString(36).slice(2,6);
+  return `${d}-${disc}-${t}-${suffix}`;
+}
+
+function autoResValue(day, discipline, level, timeStart) {
+  const lvl = level.toLowerCase()
+    .replace(/·/g,"").replace(/\s+/g," ").replace(/\//g,"/").trim();
+  return `${day} - ${discipline} ${lvl} - ${timeStart}`.replace(/\s{2,}/g," ").trim();
+}
+
+// ── Rendering ─────────────────────────────────────────────────
+function render() {
+  const container = document.getElementById("courses-container");
+  if (!state) return;
+
+  const byDay = new Map();
+  DAYS.forEach(d => byDay.set(d, []));
+  state.slots.forEach(s => {
+    if (byDay.has(s.day)) byDay.get(s.day).push(s);
+    else byDay.set(s.day, [s]);
+  });
+
+  container.innerHTML = [...byDay.entries()].map(([day, slots]) => `
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-name">${day}</div>
+        <div>${slots.length} cours · ${slots.filter(s => s.isFull).length} complet(s)</div>
+      </div>
+      <div class="slots-grid" id="grid-${day}">
+        ${slots.map(s => slotCardHTML(s)).join("")}
+        ${addFormHTML(day)}
+      </div>
+    </div>
+  `).join("");
+
+  bindEditListeners();
+}
+
+function renderSlotCard(id) {
+  const slot = state.slots.find(s => s.id === id);
+  if (!slot) return;
+  const card = document.querySelector(`[data-slot-id="${id}"]`);
+  if (!card) return;
+  card.outerHTML = slotCardHTML(slot);
+  bindEditListeners();
+}
+
+function slotCardHTML(s) {
+  const isEditing = editingId === s.id;
+  const fullClass = s.isFull ? "is-full" : "";
+  const teacherClass = { laura: "teacher-laura", presci: "teacher-presci", both: "teacher-both" }[s.teacher] || "";
+  const teacherName = { laura: "Laura", presci: "Préscilla", both: "Laura & Préscilla" }[s.teacher] || s.teacher;
+  const label = s.label || s.discipline;
+
+  return `
+    <div class="slot-card ${fullClass}" data-slot-id="${s.id}">
+      <div class="slot-display">
+        <div class="slot-color-bar color-${s.cssClass}"></div>
+        <div class="slot-info">
+          <div class="slot-discipline">${label}</div>
+          <div class="slot-level">${s.level}</div>
+          <div class="slot-time">${s.timeStart} – ${s.timeEnd}</div>
+          <span class="slot-teacher ${teacherClass}">${teacherName}</span>
+        </div>
+        <div class="slot-actions">
+          <button class="toggle-full ${s.isFull ? "is-full" : "is-available"}"
+            onclick="toggleFull('${s.id}')">
+            ${s.isFull ? "● Complet" : "○ Dispo"}
+          </button>
+        </div>
+      </div>
+      <div class="slot-bottom">
+        <button class="btn btn-secondary btn-sm" onclick="startEdit('${s.id}')">
+          ${isEditing ? "✕ Fermer" : "✏ Modifier"}
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteSlot('${s.id}')">🗑 Supprimer</button>
+      </div>
+      ${isEditing ? editFormHTML(s) : ""}
+    </div>
+  `;
+}
+
+function editFormHTML(s) {
+  const cssOpts = CSS_CLASSES.map(c => `<option value="${c}" ${s.cssClass===c?"selected":""}>${c}</option>`).join("");
+  const teacherOpts = [
+    ["laura","Laura"], ["presci","Préscilla"], ["both","Laura & Préscilla"]
+  ].map(([v,l]) => `<option value="${v}" ${s.teacher===v?"selected":""}>${l}</option>`).join("");
+
+  return `
+    <div class="slot-edit-form" id="edit-form-${s.id}">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Discipline / Catégorie</label>
+          <input name="discipline" value="${esc(s.discipline)}">
+        </div>
+        <div class="form-field">
+          <label>Label d'affichage <span style="font-weight:400">(optionnel)</span></label>
+          <input name="label" value="${esc(s.label||"")}">
+          <span class="hint">Si différent de la catégorie (ex : Pré-compagnie)</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Niveau / Public</label>
+          <input name="level" value="${esc(s.level)}">
+        </div>
+        <div class="form-field">
+          <label>Classe CSS</label>
+          <select name="cssClass">${cssOpts}</select>
+        </div>
+      </div>
+      <div class="form-row col-3">
+        <div class="form-field">
+          <label>Heure début</label>
+          <input name="timeStart" type="time" value="${s.timeStart}">
+        </div>
+        <div class="form-field">
+          <label>Heure fin</label>
+          <input name="timeEnd" type="time" value="${s.timeEnd}">
+        </div>
+        <div class="form-field">
+          <label>Professeur·e</label>
+          <select name="teacher">${teacherOpts}</select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Groupe de réservation</label>
+          <input name="reservationGroup" value="${esc(s.reservationGroup||"")}">
+          <span class="hint">Nom du groupe dans le formulaire</span>
+        </div>
+        <div class="form-field">
+          <label>Valeur de réservation</label>
+          <input name="reservationValue" value="${esc(s.reservationValue||"")}">
+          <span class="hint">Identifiant unique de ce créneau</span>
+        </div>
+      </div>
+      <div class="form-row col-1">
+        <label class="check-row">
+          <input type="checkbox" name="inReservation" ${s.inReservation?"checked":""}>
+          Affiché dans le formulaire de réservation
+        </label>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-ghost btn-sm" onclick="cancelEdit('${s.id}')">Annuler</button>
+        <button class="btn btn-primary btn-sm" onclick="saveEdit('${s.id}')">✓ Valider</button>
+      </div>
+    </div>
+  `;
+}
+
+function addFormHTML(day) {
+  if (addingDay !== day) {
+    return `<button class="add-slot-btn" onclick="startAdd('${day}')">+ Ajouter un cours le ${day}</button>`;
+  }
+  const cssOpts = CSS_CLASSES.map(c => `<option value="${c}">${c}</option>`).join("");
+  return `
+    <div class="add-slot-card">
+      <h4>Nouveau cours — ${day}</h4>
+      <div id="add-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Discipline *</label>
+            <input name="discipline" placeholder="ex : Modern">
+          </div>
+          <div class="form-field">
+            <label>Label d'affichage <span style="font-weight:400">(optionnel)</span></label>
+            <input name="label" placeholder="si différent de la discipline">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Niveau / Public</label>
+            <input name="level" placeholder="ex : Adultes">
+          </div>
+          <div class="form-field">
+            <label>Classe CSS couleur</label>
+            <select name="cssClass">${cssOpts}</select>
+          </div>
+        </div>
+        <div class="form-row col-3">
+          <div class="form-field">
+            <label>Heure début *</label>
+            <input name="timeStart" type="time">
+          </div>
+          <div class="form-field">
+            <label>Heure fin</label>
+            <input name="timeEnd" type="time">
+          </div>
+          <div class="form-field">
+            <label>Professeur·e</label>
+            <select name="teacher">
+              <option value="laura">Laura</option>
+              <option value="presci">Préscilla</option>
+              <option value="both">Laura & Préscilla</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Groupe de réservation</label>
+            <input name="reservationGroup" placeholder="= Discipline si vide">
+          </div>
+          <div class="form-field">
+            <label>Valeur de réservation</label>
+            <input name="reservationValue" placeholder="auto-générée si vide">
+          </div>
+        </div>
+        <div class="form-row col-1">
+          <label class="check-row">
+            <input type="checkbox" name="inReservation" checked>
+            Affiché dans le formulaire de réservation
+          </label>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-ghost btn-sm" onclick="cancelAdd()">Annuler</button>
+          <button class="btn btn-primary btn-sm" onclick="confirmAdd('${day}')">+ Ajouter</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function bindEditListeners() {
+  // Allow Enter key on auth inputs
+}
+
+function esc(str) {
+  return String(str || "").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+}
+
+// ── Init ──────────────────────────────────────────────────────
+document.getElementById("input-password").addEventListener("keydown", e => {
+  if (e.key === "Enter") submitPassword();
+});
+
+if (sessionStorage.getItem("sm_auth")) loadData();
+</script>
+</body>
+</html>
