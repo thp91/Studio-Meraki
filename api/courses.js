@@ -1,4 +1,4 @@
-const REPO = "OrionStudioSAS/Studio-meraki";
+const REPO = "thp91/Studio-Meraki";
 const FILE = "data/courses.json";
 const GH_API = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
 
