@@ -369,7 +369,7 @@
       "timeStart": "19:45",
       "timeEnd": "21:00",
       "teacher": "presci",
-      "isFull": false,
+      "isFull": true,
       "inReservation": true,
       "reservationGroup": "Broadway",
       "reservationValue": "Vendredi - Broadway ados/adultes 15 ans et + - 19:45"
@@ -415,7 +415,7 @@
       "timeStart": "14:45",
       "timeEnd": "16:00",
       "teacher": "presci",
-      "isFull": false,
+      "isFull": true,
       "inReservation": true,
       "reservationGroup": "Technique",
       "reservationValue": "Samedi - Technique ados/adultes 15 ans et + - 14:45"
