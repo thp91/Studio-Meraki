@@ -24,7 +24,7 @@
       "timeStart": "18:45",
       "timeEnd": "19:45",
       "teacher": "laura",
-      "isFull": true,
+      "isFull": false,
       "inReservation": true,
       "reservationGroup": "Comédie Musicale",
       "reservationValue": "Lundi - Comédie Musicale enfants 10-15 ans - 18:45"
@@ -39,7 +39,7 @@
       "timeStart": "19:45",
       "timeEnd": "21:00",
       "teacher": "laura",
-      "isFull": false,
+      "isFull": true,
       "inReservation": true,
       "reservationGroup": "Comédie Musicale",
       "reservationValue": "Lundi - Comédie Musicale ados/adultes 15 ans et + - 19:45"
