@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-14",
+  "updatedAt": "2026-08-22",
   "disciplineOrder": [
     "Modern",
     "Street",
@@ -99,7 +99,7 @@
       "timeStart": "19:00",
       "timeEnd": "20:15",
       "teacher": "presci",
-      "isFull": false,
+      "isFull": true,
       "inReservation": true,
       "reservationGroup": "Modern",
       "reservationValue": "Mardi - Modern ados 15-18 ans - 19:00"
