@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-25",
+  "updatedAt": "2026-09-01",
   "disciplineOrder": [
     "Modern",
     "Street",
@@ -114,7 +114,7 @@
       "timeStart": "20:15",
       "timeEnd": "21:30",
       "teacher": "both",
-      "isFull": true,
+      "isFull": false,
       "inReservation": true,
       "reservationGroup": "Loisirs",
       "reservationValue": "Mardi - Loisirs ados/adultes 15 ans et + - 20:15"
@@ -234,7 +234,7 @@
       "timeStart": "18:30",
       "timeEnd": "19:45",
       "teacher": "presci",
-      "isFull": true,
+      "isFull": false,
       "inReservation": true,
       "reservationGroup": "Heels",
       "reservationValue": "Mercredi - Heels - 18:30"
@@ -249,7 +249,7 @@
       "timeStart": "19:45",
       "timeEnd": "21:00",
       "teacher": "presci",
-      "isFull": true,
+      "isFull": false,
       "inReservation": true,
       "reservationGroup": "Heels",
       "reservationValue": "Mercredi - Heels adultes - 19:45"
@@ -324,7 +324,7 @@
       "timeStart": "21:00",
       "timeEnd": "22:15",
       "teacher": "presci",
-      "isFull": true,
+      "isFull": false,
       "inReservation": true,
       "reservationGroup": "Heels",
       "reservationValue": "Jeudi - Heels adultes - 21:00"
@@ -354,7 +354,7 @@
       "timeStart": "18:30",
       "timeEnd": "19:45",
       "teacher": "laura",
-      "isFull": true,
+      "isFull": false,
       "inReservation": true,
       "reservationGroup": "Street",
       "reservationValue": "Vendredi - Street adultes - 18:30"
@@ -384,7 +384,7 @@
       "timeStart": "21:00",
       "timeEnd": "22:15",
       "teacher": "presci",
-      "isFull": true,
+      "isFull": false,
       "inReservation": true,
       "reservationGroup": "Modern",
       "reservationValue": "Vendredi - Modern adultes - 21:00"
