@@ -54,7 +54,7 @@
       "timeStart": "21:00",
       "timeEnd": "22:15",
       "teacher": "laura",
-      "isFull": true,
+      "isFull": false,
       "inReservation": true,
       "reservationGroup": "Modern",
       "reservationValue": "Lundi - Modern adultes - 21:00"
