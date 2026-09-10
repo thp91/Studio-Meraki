@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08",
+  "updatedAt": "2026-09-10",
   "disciplineOrder": [
     "Modern",
     "Street",
@@ -144,7 +144,7 @@
       "timeStart": "11:30",
       "timeEnd": "12:30",
       "teacher": "presci",
-      "isFull": false,
+      "isFull": true,
       "inReservation": true,
       "reservationGroup": "Initiation (5-10 ans)",
       "reservationValue": "Mercredi - Initiation 5-6 ans - 11:30"
@@ -155,14 +155,14 @@
       "dayOrder": 3,
       "discipline": "Initiation (5-10 ans)",
       "cssClass": "kids",
-      "level": "Enfants · 6-7 ans",
+      "level": "Enfants · 5-7",
       "timeStart": "13:15",
       "timeEnd": "14:15",
       "teacher": "laura",
       "isFull": false,
       "inReservation": true,
       "reservationGroup": "Initiation (5-10 ans)",
-      "reservationValue": "Mercredi - Initiation 6-7 ans - 13:15"
+      "reservationValue": "Mercredi - Initiation 5-7 ans - 13:15"
     },
     {
       "id": "mer-initiation-78ans-1415",
@@ -174,7 +174,7 @@
       "timeStart": "14:15",
       "timeEnd": "15:15",
       "teacher": "laura",
-      "isFull": false,
+      "isFull": true,
       "inReservation": true,
       "reservationGroup": "Initiation (5-10 ans)",
       "reservationValue": "Mercredi - Initiation 7-8 ans - 14:15"
@@ -185,14 +185,14 @@
       "dayOrder": 3,
       "discipline": "Initiation (5-10 ans)",
       "cssClass": "kids",
-      "level": "Enfants · 9-10 ans",
+      "level": "Enfants · 8-10 ans",
       "timeStart": "15:15",
       "timeEnd": "16:15",
       "teacher": "laura",
       "isFull": false,
       "inReservation": true,
       "reservationGroup": "Initiation (5-10 ans)",
-      "reservationValue": "Mercredi - Initiation 9-10 ans - 15:15"
+      "reservationValue": "Mercredi - Initiation 8-10 ans - 15:15"
     },
     {
       "id": "mer-street-enfants-1615",
