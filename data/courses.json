@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-12",
+  "updatedAt": "2026-09-14",
   "disciplineOrder": [
     "Modern",
     "Street",
@@ -384,7 +384,7 @@
       "timeStart": "21:00",
       "timeEnd": "22:15",
       "teacher": "presci",
-      "isFull": false,
+      "isFull": true,
       "inReservation": true,
       "reservationGroup": "Modern",
       "reservationValue": "Vendredi - Modern adultes - 21:00"
