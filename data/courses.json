@@ -114,7 +114,7 @@
       "timeStart": "20:15",
       "timeEnd": "21:30",
       "teacher": "both",
-      "isFull": false,
+      "isFull": true,
       "inReservation": true,
       "reservationGroup": "Loisirs",
       "reservationValue": "Mardi - Loisirs ados/adultes 15 ans et + - 20:15"
